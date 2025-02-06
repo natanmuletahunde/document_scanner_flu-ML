@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "496484225465",
+    "project_id": "imagetotext-a8823",
+    "storage_bucket": "imagetotext-a8823.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496484225465:android:036c38ef3fc6aaaedce668",
+        "android_client_info": {
+          "package_name": "com.example.my_f_ml_flu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClE9PiraIIm2uceAiQ3ejaUotu6jPoeK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496484225465:android:43f2a5fffb49202bdce668",
+        "android_client_info": {
+          "package_name": "com.example.scanner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClE9PiraIIm2uceAiQ3ejaUotu6jPoeK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
