@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart'; 
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -24,7 +25,7 @@ class _HomeState extends State<Home> {
     }
   }
 
-   pickImageFromCamera() async {
+  pickImageFromCamera() async {
     XFile? pickedFile = await imagePicker.pickImage(source: ImageSource.camera);  
     if (pickedFile != null) {
       setState(() {
@@ -33,7 +34,8 @@ class _HomeState extends State<Home> {
       });
     }
   }
-    perfomrImageLabeling() async {
+
+  perfomrImageLabeling() async {
     final inputImage = InputImage.fromFile(image!);
     final textRecognizer = TextRecognizer();
     final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
@@ -56,70 +58,86 @@ class _HomeState extends State<Home> {
     super.initState();
     imagePicker = ImagePicker();
   }
+
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
-  body: Container(
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage('assets/back.jpg'),
-        fit: BoxFit.cover,
-      ),
-    ),
-    child:Column(
-      children: [
-        SizedBox(width: 100,),
-        Container(
-          height: 280,
-          width: 250,
-          margin: EdgeInsets.only(top: 70),
-          padding: EdgeInsets.only(left: 28,bottom: 5,right:18),
-          child:SingleChildScrollView(
-            child: Padding(padding: EdgeInsets.all(12),
-            child: Text(
-              result,style: TextStyle(fontSize: 16),
-              textAlign:  TextAlign.justify,
-            ),
-
-            ),
-          ),
-          decoration: BoxDecoration(
-            image:DecorationImage(image: AssetImage('assets/note.jpg'),
-            fit: BoxFit.cover)
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/back.jpg'),
+            fit: BoxFit.cover,
           ),
         ),
-        Container(
-         margin: EdgeInsets.only(top: 20,right: 140),
-         child: Stack(
+        child: Column(
           children: [
-            Center(
-              child: Image.asset('assets/pin.png',
-              height: 240,
-              width: 240,),
-            )
-          ],
-         ), 
-         Center(
-          child: TextButton(onPressed: () {
-
-          },onLongPress: () {
-             pickImageFromCamera()
-          },
-          child: Container(
-            margin:EdgeInsets.only(top: 25),
-            child: image!=null? Image.file(image!,width: 140,height:192, fit: BoxFit.fill,):
+            SizedBox(width: 100,),
             Container(
-              width: 240,
-              height: 200,
-              child:Icon(Icons.camera_enhance_sharp,size: 100, color:Colors.grey,),
-            )
-          ),),
-         )
-        )
-      ],
-    ),
-  ),
-);
-
+              height: 280,
+              width: 250,
+              margin: EdgeInsets.only(top: 70),
+              padding: EdgeInsets.only(left: 28, bottom: 5, right: 18),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.all(12),
+                  child: Text(
+                    result,
+                    style: TextStyle(fontSize: 16),
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
+              ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/note.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20, right: 140),
+              child: Stack(
+                children: [
+                  Center(
+                    child: Image.asset(
+                      'assets/pin.png',
+                      height: 240,
+                      width: 240,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Center(
+              child: TextButton(
+                onPressed: () {},
+                onLongPress: () {
+                  pickImageFromCamera();
+                },
+                child: Container(
+                  margin: EdgeInsets.only(top: 25),
+                  child: image != null
+                      ? Image.file(
+                          image!,
+                          width: 140,
+                          height: 192,
+                          fit: BoxFit.fill,
+                        )
+                      : Container(
+                          width: 240,
+                          height: 200,
+                          child: Icon(
+                            Icons.camera_enhance_sharp,
+                            size: 100,
+                            color: Colors.grey,
+                          ),
+                        ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
