@@ -99,6 +99,22 @@ class _HomeState extends State<Home> {
             )
           ],
          ), 
+         Center(
+          child: TextButton(onPressed: () {
+
+          },onLongPress: () {
+             pickImageFromCamera()
+          },
+          child: Container(
+            margin:EdgeInsets.only(top: 25),
+            child: image!=null? Image.file(image!,width: 140,height:192, fit: BoxFit.fill,):
+            Container(
+              width: 240,
+              height: 200,
+              child:Icon(Icons.camera_enhance_sharp,size: 100, color:Colors.grey,),
+            )
+          ),),
+         )
         )
       ],
     ),
