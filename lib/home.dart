@@ -58,6 +58,12 @@ class _HomeState extends State<Home> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Container(
+       decoration: BoxDecoration(
+        image: AssetImage('')
+       ),
+      ),
+    );
   }
 }
