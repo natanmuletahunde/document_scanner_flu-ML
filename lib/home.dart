@@ -66,6 +66,26 @@ class _HomeState extends State<Home> {
         fit: BoxFit.cover,
       ),
     ),
+    child:Column(
+      children: [
+        SizedBox(width: 100,),
+        Container(
+          height: 280,
+          width: 250,
+          margin: EdgeInsets.only(top: 70),
+          padding: EdgeInsets.only(left: 28,bottom: 5,right:18),
+          child:SingleChildScrollView(
+            child: Padding(padding: EdgeInsets.all(12),
+            child: Text(
+              result,style: TextStyle(fontSize: 16),
+              textAlign:  TextAlign.justify,
+            ),
+
+            ),
+          ),
+        )
+      ],
+    ),
   ),
 );
 
