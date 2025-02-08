@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "104086055461",
+    "project_id": "last-fca00",
+    "storage_bucket": "last-fca00.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104086055461:android:0c985f9dc4770dddc2edcc",
+        "android_client_info": {
+          "package_name": "com.example.scanner_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXYgWuLqW97TS-ypnSGJQnTW-Mc8YR0Ys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
