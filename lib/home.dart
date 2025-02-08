@@ -83,6 +83,22 @@ class _HomeState extends State<Home> {
 
             ),
           ),
+          decoration: BoxDecoration(
+            image:DecorationImage(image: AssetImage('assets/note.jpg'),
+            fit: BoxFit.cover)
+          ),
+        ),
+        Container(
+         margin: EdgeInsets.only(top: 20,right: 140),
+         child: Stack(
+          children: [
+            Center(
+              child: Image.asset('assets/pin.png',
+              height: 240,
+              width: 240,),
+            )
+          ],
+         ), 
         )
       ],
     ),
