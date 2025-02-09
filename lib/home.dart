@@ -13,50 +13,53 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String result = "";
   File? image;
-  ImagePicker imagePicker = ImagePicker(); 
+  final ImagePicker imagePicker = ImagePicker(); 
 
-  pickImageFromGallery() async {
+  Future<void> pickImageFromGallery() async {
     XFile? pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);  
     if (pickedFile != null) {
       setState(() {
         image = File(pickedFile.path);
-        perfomrImageLabeling();
       });
+      await performImageLabeling();
     }
   }
 
-  pickImageFromCamera() async {
+  Future<void> pickImageFromCamera() async {
     XFile? pickedFile = await imagePicker.pickImage(source: ImageSource.camera);  
     if (pickedFile != null) {
       setState(() {
         image = File(pickedFile.path);
-        perfomrImageLabeling();
       });
+      await performImageLabeling();
     }
   }
 
-  perfomrImageLabeling() async {
+  Future<void> performImageLabeling() async {
+    if (image == null) return;
+
     final inputImage = InputImage.fromFile(image!);
     final textRecognizer = TextRecognizer();
-    final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
+    
+    try {
+      final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
 
-    result = '';
-    setState(() {
-      for (TextBlock block in recognizedText.blocks) {
-        for (TextLine line in block.lines) {
-          result += line.text + '\n';
+      setState(() {
+        result = '';
+        for (TextBlock block in recognizedText.blocks) {
+          for (TextLine line in block.lines) {
+            result += line.text + '\n';
+          }
+          result += "\n\n";
         }
-        result += "\n\n";
-      }
-    });
-
-    textRecognizer.close();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    imagePicker = ImagePicker();
+      });
+    } catch (e) {
+      setState(() {
+        result = "Error recognizing text: $e";
+      });
+    } finally {
+      textRecognizer.close();
+    }
   }
 
   @override
@@ -71,20 +74,16 @@ class _HomeState extends State<Home> {
         ),
         child: Column(
           children: [
-            SizedBox(width: 100,),
             Container(
               height: 280,
               width: 250,
               margin: EdgeInsets.only(top: 70),
-              padding: EdgeInsets.only(left: 28, bottom: 5, right: 18),
+              padding: EdgeInsets.all(12),
               child: SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.all(12),
-                  child: Text(
-                    result,
-                    style: TextStyle(fontSize: 16),
-                    textAlign: TextAlign.justify,
-                  ),
+                child: Text(
+                  result,
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.justify,
                 ),
               ),
               decoration: BoxDecoration(
@@ -95,22 +94,18 @@ class _HomeState extends State<Home> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 20, right: 140),
-              child: Stack(
-                children: [
-                  Center(
-                    child: Image.asset(
-                      'assets/pin.png',
-                      height: 240,
-                      width: 240,
-                    ),
-                  ),
-                ],
+              margin: EdgeInsets.only(top: 20),
+              child: Image.asset(
+                'assets/pin.png',
+                height: 240,
+                width: 240,
               ),
             ),
             Center(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  pickImageFromGallery();
+                },
                 onLongPress: () {
                   pickImageFromCamera();
                 },
