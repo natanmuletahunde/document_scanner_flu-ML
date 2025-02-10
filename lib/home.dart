@@ -81,17 +81,16 @@ class _HomeState extends State<Home> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: SingleChildScrollView(
-                child: Text(
+                child:Padding(padding: EdgeInsets.all(12),
+                 child: Text(
                   result,
                   style: const TextStyle(fontSize: 16),
                   textAlign: TextAlign.justify,
                 ),
+                ),
               ),
             ),
-
             const SizedBox(height: 20),
-
-            // Image Container
             Container(
               child: image != null
                   ? Image.file(
