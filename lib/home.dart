@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
       setState(() {
         image = File(pickedFile.path);
       });
-      await performImageLabeling();
+      performImageLabeling();
     }
   }
 
@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
       setState(() {
         image = File(pickedFile.path);
       });
-      await performImageLabeling();
+      performImageLabeling();
     }
   }
 
@@ -40,95 +40,91 @@ class _HomeState extends State<Home> {
 
     final inputImage = InputImage.fromFile(image!);
     final textRecognizer = TextRecognizer();
-    
-    try {
-      final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
+    final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
 
-      setState(() {
-        result = '';
-        for (TextBlock block in recognizedText.blocks) {
-          for (TextLine line in block.lines) {
-            result += line.text + '\n';
-          }
-          result += "\n\n";
+    setState(() {
+      result = '';
+      for (TextBlock block in recognizedText.blocks) {
+        for (TextLine line in block.lines) {
+          result += line.text + '\n';
         }
-      });
-    } catch (e) {
-      setState(() {
-        result = "Error recognizing text: $e";
-      });
-    } finally {
-      textRecognizer.close();
-    }
+        result += "\n\n";
+      }
+    });
+
+    textRecognizer.close();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/back.jpg'),
             fit: BoxFit.cover,
           ),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               height: 280,
               width: 250,
-              margin: EdgeInsets.only(top: 70),
-              padding: EdgeInsets.all(12),
-              child: SingleChildScrollView(
-                child: Text(
-                  result,
-                  style: TextStyle(fontSize: 16),
-                  textAlign: TextAlign.justify,
-                ),
-              ),
+              margin: const EdgeInsets.only(top: 50),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                image: DecorationImage(
+                image: const DecorationImage(
                   image: AssetImage('assets/note.jpg'),
                   fit: BoxFit.cover,
                 ),
+                borderRadius: BorderRadius.circular(10),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              child: Image.asset(
-                'assets/pin.png',
-                height: 240,
-                width: 240,
-              ),
-            ),
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  pickImageFromGallery();
-                },
-                onLongPress: () {
-                  pickImageFromCamera();
-                },
-                child: Container(
-                  margin: EdgeInsets.only(top: 25),
-                  child: image != null
-                      ? Image.file(
-                          image!,
-                          width: 140,
-                          height: 192,
-                          fit: BoxFit.fill,
-                        )
-                      : Container(
-                          width: 240,
-                          height: 200,
-                          child: Icon(
-                            Icons.camera_enhance_sharp,
-                            size: 100,
-                            color: Colors.grey,
-                          ),
-                        ),
+              child: SingleChildScrollView(
+                child: Text(
+                  result,
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.justify,
                 ),
               ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Image Container
+            Container(
+              child: image != null
+                  ? Image.file(
+                      image!,
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    )
+                  : const Icon(
+                      Icons.camera_alt,
+                      size: 80,
+                      color: Colors.grey,
+                    ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: pickImageFromGallery,
+                  icon: const Icon(Icons.image),
+                  label: const Text("Gallery"),
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton.icon(
+                  onPressed: pickImageFromCamera,
+                  icon: const Icon(Icons.camera),
+                  label: const Text("Camera"),
+                ),
+              ],
             ),
           ],
         ),
