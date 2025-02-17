@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:free_code_camp_flu/screens/location_detail/text_section.dart';
 class LocationDetail extends StatelessWidget {
   const LocationDetail({super.key});
 
@@ -9,26 +10,12 @@ class LocationDetail extends StatelessWidget {
         title: Text('Hello'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.red
-            ),
-            child: Text('hi'),  
-          ),
-           Container(
-            decoration: BoxDecoration(
-              color: Colors.green
-            ),
-            child: Text('ki'),  
-          ),
-           Container(
-            decoration: BoxDecoration(
-              color: Colors.blue
-            ),
-            child: Text('ml'),  
-          ),
+        TextSection(),
+        TextSection(),
+        TextSection()
         ],
       ),
     );
